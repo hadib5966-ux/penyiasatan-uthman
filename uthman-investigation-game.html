@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Siasatan Syahid Uthman</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;min-height:100vh;}
+.screen{display:none;min-height:100vh;background:linear-gradient(160deg,#FFF8EE,#FEF3E2,#FDF0DC);flex-direction:column;align-items:center;padding:20px 16px 50px;color:#1C1410;overflow-x:hidden;}
+.screen.active{display:flex;}
+.screen.top-left{align-items:flex-start!important;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{0%{transform:scale(.6);opacity:0}75%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes floatAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes wrongShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+@keyframes correctBounce{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
+.float-anim{animation:floatAnim 3s ease infinite;}
+.fade-up{animation:fadeUp .6s ease;}
+.pop-in{animation:popIn .5s ease;}
+.score-pill{position:fixed;top:14px;right:14px;z-index:99;background:rgba(180,83,9,0.12);border:1px solid rgba(180,83,9,0.35);border-radius:30px;padding:6px 14px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:800;color:#92400E;}
+.progress-bar{height:6px;background:rgba(0,0,0,0.1);border-radius:3px;overflow:hidden;margin-bottom:20px;}
+.progress-fill{height:100%;border-radius:3px;transition:width .4s;}
+.big-btn{width:100%;padding:16px 20px;border-radius:16px;border:none;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.big-btn:disabled{background:rgba(0,0,0,0.08)!important;color:rgba(0,0,0,0.25)!important;cursor:not-allowed;}
+.cat-btn{padding:14px 10px;border-radius:14px;border:2px solid;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;text-align:center;}
+.tf-btn{padding:22px 10px;border-radius:16px;border:2px solid;font-size:16px;font-weight:800;color:#1C1410;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.ef-btn{padding:20px 10px;border-radius:16px;border:2px solid;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .25s;text-align:center;}
+.name-input{width:100%;padding:13px 16px;border-radius:12px;border:2px solid rgba(0,0,0,0.15);font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border .3s;background:#fff;color:#1C1410;margin-bottom:12px;display:block;}
+.name-input:focus{border-color:#B45309;}
+</style>
+</head>
+<body>
+
+<!-- WELCOME -->
+<div id="sc-welcome" class="screen active" style="justify-content:center;">
+  <div style="max-width:400px;width:100%;text-align:center;" class="fade-up">
+    <div style="font-size:72px;margin-bottom:8px;" class="float-anim">🔍</div>
+    <div style="font-family:'Amiri',serif;font-size:13px;color:#B45309;letter-spacing:4px;text-transform:uppercase;margin-bottom:8px;">Penyiasat Sejarah Islam</div>
+    <h1 style="font-family:'Amiri',serif;font-size:32px;color:#1C1410;line-height:1.3;margin-bottom:6px;">
+      Siasatan<br/><span style="color:#B45309;">Syahid Uthman</span>
+    </h1>
+    <p style="font-size:13px;color:rgba(0,0,0,0.5);line-height:1.8;margin-bottom:24px;">
+      35 Hijrah • 656 Masihi<br/>Selesaikan 3 misi siasatan dan buktikan anda penyiasat sejarah terbaik!
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:24px;">
+      <div style="background:#EF444418;border:1px solid #EF444433;border-radius:14px;padding:12px 6px;text-align:center;">
+        <div style="font-size:26px;margin-bottom:4px;">⚔️</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;">Misi 1</div>
+        <div style="font-size:10px;color:rgba(0,0,0,0.4);margin-top:2px;">Punca</div>
+      </div>
+      <div style="background:#10B98118;border:1px solid #10B98133;border-radius:14px;padding:12px 6px;text-align:center;">
+        <div style="font-size:26px;margin-bottom:4px;">🛡️</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;">Misi 2</div>
+        <div style="font-size:10px;color:rgba(0,0,0,0.4);margin-top:2px;">Strategi</div>
+      </div>
+      <div style="background:#8B5CF618;border:1px solid #8B5CF633;border-radius:14px;padding:12px 6px;text-align:center;">
+        <div style="font-size:26px;margin-bottom:4px;">📜</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;">Misi 3</div>
+        <div style="font-size:10px;color:rgba(0,0,0,0.4);margin-top:2px;">Kesan</div>
+      </div>
+    </div>
+    <div style="background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.1);border-radius:18px;padding:20px;">
+      <p style="font-size:12px;color:rgba(0,0,0,0.4);margin-bottom:12px;">Masukkan nama penyiasat</p>
+      <input class="name-input" type="text" id="name-input" placeholder="Nama anda..." oninput="onName(this.value)" onkeydown="if(event.key==='Enter')toM1()"/>
+      <button class="big-btn" id="start-btn" style="background:linear-gradient(135deg,#B45309,#92400E);" onclick="toM1()" disabled>🔍 MULA SIASATAN!</button>
+    </div>
+  </div>
+</div>
+
+<!-- M1 INTRO -->
+<div id="sc-m1intro" class="screen" style="justify-content:center;">
+  <div style="max-width:360px;width:100%;text-align:center;" class="pop-in">
+    <div style="font-size:80px;margin-bottom:10px;">⚔️</div>
+    <div style="display:inline-block;background:#EF4444;border-radius:8px;padding:4px 18px;margin-bottom:14px;">
+      <span style="font-size:11px;font-weight:800;color:#fff;letter-spacing:3px;">MISI 1 — PUNCA</span>
+    </div>
+    <h2 style="font-family:'Amiri',serif;font-size:28px;color:#1C1410;margin-bottom:12px;">
+      Kenalpasti<br/><span style="color:#B91C1C;">Punca Kejadian</span>
+    </h2>
+    <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:18px;margin-bottom:24px;text-align:left;">
+      <p style="font-size:13px;color:rgba(0,0,0,0.65);line-height:1.8;">
+        📋 <strong style="color:#B91C1C;">Arahan:</strong><br/>
+        Kategorikan setiap clue ke dalam <strong>4 kategori punca</strong> yang betul.<br/><br/>
+        💰 <span style="color:#B45309;">75 mata</span> setiap jawapan betul!
+      </p>
+    </div>
+    <button class="big-btn" style="background:linear-gradient(135deg,#EF4444,#DC2626);" onclick="go('m1game')">MULA MISI 1 →</button>
+  </div>
+</div>
+
+<!-- M1 GAME -->
+<div id="sc-m1game" class="screen top-left">
+  <div id="score-pill-m1" class="score-pill">⭐ <span id="score-m1">0</span></div>
+  <div style="width:100%;max-width:440px;margin:0 auto;padding-top:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <span id="m1-counter" style="font-size:12px;color:rgba(0,0,0,0.45);font-weight:600;">Kad 1 / 10</span>
+      <span style="background:#EF4444;border-radius:20px;padding:3px 14px;font-size:11px;font-weight:800;color:#fff;letter-spacing:2px;">MISI 1</span>
+    </div>
+    <div class="progress-bar"><div id="m1-pbar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#EF4444,#FCA5A5);"></div></div>
+    <div id="m1-clue" style="background:rgba(239,68,68,0.08);border:2px solid rgba(239,68,68,0.35);border-radius:18px;padding:24px 20px;margin-bottom:18px;text-align:center;box-shadow:0 8px 30px rgba(239,68,68,0.1);">
+      <div style="font-size:11px;color:rgba(0,0,0,0.35);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;">🔍 CLUE PENYIASAT</div>
+      <p id="m1-clue-text" style="font-size:15px;font-weight:600;color:#1C1410;line-height:1.7;"></p>
+    </div>
+    <p style="font-size:13px;color:rgba(0,0,0,0.45);text-align:center;margin-bottom:14px;">Clue ini termasuk dalam kategori punca yang mana?</p>
+    <div id="m1-cats" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+    <div id="m1-feedback" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<!-- M1 DONE -->
+<div id="sc-m1done" class="screen" style="justify-content:center;">
+  <div style="max-width:360px;width:100%;text-align:center;" class="pop-in">
+    <div style="font-size:64px;margin-bottom:10px;">⚔️</div>
+    <h2 style="font-family:'Amiri',serif;font-size:26px;color:#1C1410;margin-bottom:20px;">Misi 1 Selesai!</h2>
+    <div style="background:rgba(239,68,68,0.08);border:2px solid rgba(239,68,68,0.3);border-radius:18px;padding:24px;margin-bottom:24px;">
+      <div id="m1-pts-display" style="font-size:60px;font-weight:900;color:#EF4444;line-height:1;">0</div>
+      <div style="font-size:12px;color:rgba(0,0,0,0.4);margin-top:4px;">daripada 750 mata</div>
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(0,0,0,0.04);border-radius:10px;text-align:left;">
+        <p style="font-size:12px;color:rgba(0,0,0,0.7);line-height:1.8;">
+          📚 <strong style="color:#B91C1C;">Rumusan 4 Punca:</strong><br/>
+          🏛️ Kelemahan Kawalan Politik<br/>
+          ⚖️ Ketidakpuasan terhadap Gabenor<br/>
+          ⚔️ Kumpulan Pemberontak<br/>
+          🕵️ Fitnah &amp; Propaganda
+        </p>
+      </div>
+    </div>
+    <button class="big-btn" style="background:linear-gradient(135deg,#10B981,#059669);" onclick="go('m2intro')">KE MISI 2 — STRATEGI →</button>
+  </div>
+</div>
+
+<!-- M2 INTRO -->
+<div id="sc-m2intro" class="screen" style="justify-content:center;">
+  <div style="max-width:360px;width:100%;text-align:center;" class="pop-in">
+    <div style="font-size:80px;margin-bottom:10px;">🛡️</div>
+    <div style="display:inline-block;background:#10B981;border-radius:8px;padding:4px 18px;margin-bottom:14px;">
+      <span style="font-size:11px;font-weight:800;color:#fff;letter-spacing:3px;">MISI 2 — STRATEGI</span>
+    </div>
+    <h2 style="font-family:'Amiri',serif;font-size:28px;color:#1C1410;margin-bottom:12px;">
+      Strategi<br/><span style="color:#047857;">Khalifah Uthman</span>
+    </h2>
+    <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);border-radius:14px;padding:18px;margin-bottom:24px;text-align:left;">
+      <p style="font-size:13px;color:rgba(0,0,0,0.65);line-height:1.8;">
+        📋 <strong style="color:#047857;">Arahan:</strong><br/>
+        Tentukan sama ada setiap penyataan tentang strategi Uthman itu <strong style="color:#047857;">BENAR</strong> atau <strong style="color:#B91C1C;">SALAH</strong>.<br/><br/>
+        💰 <span style="color:#B45309;">100 mata</span> setiap jawapan betul!
+      </p>
+    </div>
+    <button class="big-btn" style="background:linear-gradient(135deg,#10B981,#059669);" onclick="go('m2game')">MULA MISI 2 →</button>
+  </div>
+</div>
+
+<!-- M2 GAME -->
+<div id="sc-m2game" class="screen top-left">
+  <div id="score-pill-m2" class="score-pill">⭐ <span id="score-m2">0</span></div>
+  <div style="width:100%;max-width:440px;margin:0 auto;padding-top:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <span id="m2-counter" style="font-size:12px;color:rgba(0,0,0,0.45);font-weight:600;">Soalan 1 / 6</span>
+      <span style="background:#10B981;border-radius:20px;padding:3px 14px;font-size:11px;font-weight:800;color:#fff;letter-spacing:2px;">MISI 2</span>
+    </div>
+    <div class="progress-bar"><div id="m2-pbar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#10B981,#6EE7B7);"></div></div>
+    <div style="background:rgba(16,185,129,0.07);border:2px solid rgba(16,185,129,0.3);border-radius:18px;padding:26px 20px;margin-bottom:20px;text-align:center;">
+      <div style="font-size:11px;color:rgba(0,0,0,0.35);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">🛡️ PENYATAAN STRATEGI</div>
+      <p id="m2-statement" style="font-size:15px;font-weight:500;color:#1C1410;line-height:1.75;"></p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+      <button class="tf-btn" id="btn-benar" onclick="pickTF(true)" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.4);">✅ BENAR</button>
+      <button class="tf-btn" id="btn-salah" onclick="pickTF(false)" style="background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.4);">❌ SALAH</button>
+    </div>
+    <div id="m2-feedback"></div>
+  </div>
+</div>
+
+<!-- M2 DONE -->
+<div id="sc-m2done" class="screen" style="justify-content:center;">
+  <div style="max-width:360px;width:100%;text-align:center;" class="pop-in">
+    <div style="font-size:64px;margin-bottom:10px;">🛡️</div>
+    <h2 style="font-family:'Amiri',serif;font-size:26px;color:#1C1410;margin-bottom:20px;">Misi 2 Selesai!</h2>
+    <div style="background:rgba(16,185,129,0.08);border:2px solid rgba(16,185,129,0.35);border-radius:18px;padding:24px;margin-bottom:24px;">
+      <div id="m2-pts-display" style="font-size:60px;font-weight:900;color:#10B981;line-height:1;">0</div>
+      <div style="font-size:12px;color:rgba(0,0,0,0.4);margin-top:4px;">daripada 600 mata</div>
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(0,0,0,0.04);border-radius:10px;text-align:left;">
+        <p style="font-size:12px;color:rgba(0,0,0,0.7);line-height:1.8;">
+          📚 <strong style="color:#047857;">2 Strategi Uthman:</strong><br/>
+          🤝 Strategi Rundingan — hantar wakil, dengar aduan<br/>
+          🕊️ Bersabar &amp; Beriman — tolak kekerasan, teguh dalam iman
+        </p>
+      </div>
+    </div>
+    <button class="big-btn" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED);" onclick="go('m3intro')">KE MISI 3 — KESAN →</button>
+  </div>
+</div>
+
+<!-- M3 INTRO -->
+<div id="sc-m3intro" class="screen" style="justify-content:center;">
+  <div style="max-width:360px;width:100%;text-align:center;" class="pop-in">
+    <div style="font-size:80px;margin-bottom:10px;">📜</div>
+    <div style="display:inline-block;background:#8B5CF6;border-radius:8px;padding:4px 18px;margin-bottom:14px;">
+      <span style="font-size:11px;font-weight:800;color:#fff;letter-spacing:3px;">MISI 3 — KESAN</span>
+    </div>
+    <h2 style="font-family:'Amiri',serif;font-size:28px;color:#1C1410;margin-bottom:12px;">
+      Kesan<br/><span style="color:#7C3AED;">Peristiwa Pembunuhan</span>
+    </h2>
+    <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.3);border-radius:14px;padding:18px;margin-bottom:24px;text-align:left;">
+      <p style="font-size:13px;color:rgba(0,0,0,0.65);line-height:1.8;">
+        📋 <strong style="color:#7C3AED;">Arahan:</strong><br/>
+        Tentukan setiap kesan sama ada ia:<br/>
+        🟡 <strong>Kesan Jangka Pendek</strong> atau<br/>
+        🟣 <strong>Kesan Jangka Panjang</strong><br/><br/>
+        💰 <span style="color:#B45309;">100 mata</span> setiap jawapan betul!
+      </p>
+    </div>
+    <button class="big-btn" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED);" onclick="go('m3game')">MULA MISI 3 →</button>
+  </div>
+</div>
+
+<!-- M3 GAME -->
+<div id="sc-m3game" class="screen top-left">
+  <div id="score-pill-m3" class="score-pill">⭐ <span id="score-m3">0</span></div>
+  <div style="width:100%;max-width:440px;margin:0 auto;padding-top:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+      <span id="m3-counter" style="font-size:12px;color:rgba(0,0,0,0.45);font-weight:600;">Kad 1 / 8</span>
+      <span style="background:#8B5CF6;border-radius:20px;padding:3px 14px;font-size:11px;font-weight:800;color:#fff;letter-spacing:2px;">MISI 3</span>
+    </div>
+    <div class="progress-bar"><div id="m3-pbar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#8B5CF6,#C4B5FD);"></div></div>
+    <div style="background:rgba(139,92,246,0.07);border:2px solid rgba(139,92,246,0.3);border-radius:18px;padding:26px 20px;margin-bottom:18px;text-align:center;">
+      <div style="font-size:11px;color:rgba(0,0,0,0.35);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;">📜 KESAN PERISTIWA</div>
+      <p id="m3-effect-text" style="font-size:15px;font-weight:500;color:#1C1410;line-height:1.75;"></p>
+    </div>
+    <p style="font-size:13px;color:rgba(0,0,0,0.45);text-align:center;margin-bottom:14px;">Ini adalah kesan jenis apa?</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <button class="ef-btn" id="btn-pendek" onclick="pickEf('pendek')" style="background:rgba(217,119,6,0.12);border-color:rgba(217,119,6,0.4);color:#1C1410;">
+        <div style="font-size:15px;font-weight:800;margin-bottom:6px;">🟡 Jangka<br/>PENDEK</div>
+        <div style="font-size:10px;color:rgba(0,0,0,0.4);">Berlaku terus<br/>selepas peristiwa</div>
+      </button>
+      <button class="ef-btn" id="btn-panjang" onclick="pickEf('panjang')" style="background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.4);color:#1C1410;">
+        <div style="font-size:15px;font-weight:800;margin-bottom:6px;">🟣 Jangka<br/>PANJANG</div>
+        <div style="font-size:10px;color:rgba(0,0,0,0.4);">Kesan berpanjangan<br/>kepada Islam</div>
+      </button>
+    </div>
+    <div id="m3-feedback" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<!-- FINAL -->
+<div id="sc-final" class="screen" style="justify-content:center;">
+  <div id="final-content" style="max-width:400px;width:100%;text-align:center;" class="pop-in"></div>
+</div>
+
+<script>
+// DATA
+const CLUES=[
+  {teks:"Uthman enggan melawan sesama Islam walaupun dikepung",kat:0},
+  {teks:"Tiada pasukan pertahanan mencukupi di Madinah",kat:0},
+  {teks:"Sahabat senior berselisih faham dan berpisah ke wilayah",kat:0},
+  {teks:"Said bin al-As diusir oleh rakyat Kufah kerana ketidakpuasan",kat:1},
+  {teks:"Tuduhan nepotisme — Uthman melantik Bani Umayyah ke jawatan penting",kat:1},
+  {teks:"Pemberontak dari Mesir, Kufah dan Basrah mengepung Madinah",kat:2},
+  {teks:"Qatirah dan Sudan antara pembunuh langsung Saidina Uthman",kat:2},
+  {teks:"Abdullah Ibn Saba' — bekas Yahudi dari Yaman menyebarkan hasutan",kat:3},
+  {teks:"Surat-surat palsu diedarkan ke wilayah untuk menghasut rakyat",kat:3},
+  {teks:"Uthman dikepung hampir 40 hari sebelum dibunuh",kat:2},
+];
+
+const CATS=[
+  {id:0,nama:"Kelemahan\nKawalan Politik",ikon:"🏛️",warna:"#10B981"},
+  {id:1,nama:"Ketidakpuasan\nterhadap Gabenor",ikon:"⚖️",warna:"#F59E0B"},
+  {id:2,nama:"Kumpulan\nPemberontak",ikon:"⚔️",warna:"#EF4444"},
+  {id:3,nama:"Fitnah &\nPropaganda",ikon:"🕵️",warna:"#8B5CF6"},
+];
+
+const TF=[
+  {p:"Uthman berunding secara terbuka dan menghantar wakil ke setiap wilayah untuk mendengar aduan rakyat.",betul:true,fakta:"Ini strategi rundingan yang diambil Uthman — beliau tidak mahu pertumpahan darah."},
+  {p:"Uthman memerintahkan tentera menyerang pemberontak yang mengepung rumahnya.",betul:false,fakta:"Salah. Uthman menolak dengan tegas sebarang tindakan kekerasan sesama Islam."},
+  {p:"Uthman menolak cadangan Ali dan sahabat yang ingin berperang mempertahankan beliau.",betul:true,fakta:"Benar. Uthman berkata beliau tidak mahu menjadi orang pertama menumpahkan darah Islam."},
+  {p:"Uthman melarikan diri dari Madinah semasa dikepung oleh pemberontak.",betul:false,fakta:"Salah. Uthman kekal di rumahnya, bersabar dan berdoa. Beliau tidak melarikan diri."},
+  {p:"Uthman berpuasa dan membaca Al-Quran pada hari terakhir hayatnya ketika dikepung.",betul:true,fakta:"Benar. Ini menunjukkan ketenangan dan keteguhan iman Uthman sehingga ke saat syahid."},
+  {p:"Uthman meminta bantuan tentera Muawiyah dari Syria untuk menyerang pemberontak.",betul:false,fakta:"Salah. Uthman menolak bantuan ketenteraan kerana bimbang berlaku perang saudara dalam Islam."},
+];
+
+const EFFECTS=[
+  {teks:"Fitnah Kubra — era huru-hara dan kekecohan pertama dalam sejarah Islam",jenis:"pendek"},
+  {teks:"Tercetusnya Perang Jamal (656M) antara Saidina Ali dan Saidatina Aisyah",jenis:"pendek"},
+  {teks:"Tercetusnya Perang Siffin (657M) antara Saidina Ali dan Muawiyah",jenis:"pendek"},
+  {teks:"Kemunculan golongan Khawarij yang ekstrem dalam Islam",jenis:"pendek"},
+  {teks:"Lahirnya perpecahan besar antara mazhab Sunni dan Syiah",jenis:"panjang"},
+  {teks:"Sistem pemerintahan khalifah beralih kepada sistem monarki (Bani Umayyah)",jenis:"panjang"},
+  {teks:"Uthman bin Affan diiktiraf sebagai syahid yang mulia dalam sejarah Islam",jenis:"panjang"},
+  {teks:"Iktibar: Bahaya 'musuh dalam selimut' yang perlu sentiasa diwaspadai",jenis:"panjang"},
+];
+
+// STATE
+let pName='', m1pts=0, m2pts=0, m3pts=0;
+let m1idx=0, m1shuffled=[], m1locked=false, m1score=0;
+let m2idx=0, m2locked=false, m2score=0;
+let m3idx=0, m3shuffled=[], m3locked=false, m3score=0;
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sc-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function onName(v){
+  pName=v;
+  document.getElementById('start-btn').disabled=!v.trim();
+}
+
+function shuf(a){return[...a].sort(()=>Math.random()-.5);}
+
+// ── MISI 1 ──
+function toM1(){
+  if(!pName.trim())return;
+  go('m1intro');
+}
+
+function initM1(){
+  m1shuffled=shuf(CLUES); m1idx=0; m1score=0; m1locked=false;
+  document.getElementById('score-m1').textContent='0';
+  renderM1();
+}
+
+function renderM1(){
+  const cur=m1shuffled[m1idx];
+  document.getElementById('m1-counter').textContent=`Kad ${m1idx+1} / ${m1shuffled.length}`;
+  document.getElementById('m1-pbar').style.width=(m1idx/m1shuffled.length*100)+'%';
+  document.getElementById('m1-clue-text').textContent='"'+cur.teks+'"';
+  document.getElementById('m1-feedback').innerHTML='';
+  m1locked=false;
+
+  const grid=document.getElementById('m1-cats');
+  grid.innerHTML='';
+  CATS.forEach(k=>{
+    const btn=document.createElement('button');
+    btn.className='cat-btn';
+    btn.style.cssText=`background:${k.warna}18;border-color:${k.warna}55;color:#1C1410;`;
+    btn.innerHTML=`<div style="font-size:22px;margin-bottom:6px;">${k.ikon}</div><div style="font-size:12px;font-weight:700;line-height:1.35;white-space:pre-line;">${k.nama}</div>`;
+    btn.addEventListener('click',()=>pickCat(k.id,cur,btn,grid));
+    grid.appendChild(btn);
+  });
+}
+
+function pickCat(katId,cur,clickedBtn,grid){
+  if(m1locked)return;
+  m1locked=true;
+  const correct=katId===cur.kat;
+  if(correct)m1score+=75;
+  document.getElementById('score-m1').textContent=m1score;
+
+  // Style all buttons
+  Array.from(grid.children).forEach((btn,i)=>{
+    const isCorrect=CATS[i].id===cur.kat;
+    const isChosen=CATS[i].id===katId;
+    if(isCorrect){btn.style.background=CATS[i].warna+'cc';btn.style.borderColor=CATS[i].warna;btn.style.color='#fff';}
+    else if(isChosen){btn.style.background='#EF444466';btn.style.borderColor='#EF4444';btn.style.color='#fff';}
+    else{btn.style.background='rgba(0,0,0,0.04)';btn.style.borderColor='rgba(0,0,0,0.08)';btn.style.color='rgba(0,0,0,0.3)';}
+  });
+
+  const fb=document.getElementById('m1-feedback');
+  fb.innerHTML=`<div style="padding:12px 16px;background:${correct?'rgba(16,185,129,0.1)':'rgba(239,68,68,0.08)'};border:1px solid ${correct?'rgba(16,185,129,0.3)':'rgba(239,68,68,0.2)'};border-radius:12px;font-size:12px;color:rgba(0,0,0,0.7);line-height:1.7;">
+    ${correct?'✅ Betul!':'❌ Salah.'} Kategori yang betul: <strong>${CATS.find(c=>c.id===cur.kat).ikon} ${CATS.find(c=>c.id===cur.kat).nama.replace('\n',' ')}</strong>
+  </div>`;
+
+  setTimeout(()=>{
+    if(m1idx+1>=m1shuffled.length){
+      m1pts=m1score;
+      document.getElementById('m1-pts-display').textContent=m1pts;
+      go('m1done');
+    } else {
+      m1idx++;
+      renderM1();
+    }
+  },1800);
+}
+
+// ── MISI 2 ──
+function initM2(){
+  m2idx=0; m2score=0; m2locked=false;
+  document.getElementById('score-m2').textContent='0';
+  renderM2();
+}
+
+function renderM2(){
+  const q=TF[m2idx];
+  document.getElementById('m2-counter').textContent=`Soalan ${m2idx+1} / ${TF.length}`;
+  document.getElementById('m2-pbar').style.width=(m2idx/TF.length*100)+'%';
+  document.getElementById('m2-statement').textContent=q.p;
+  document.getElementById('m2-feedback').innerHTML='';
+  const bB=document.getElementById('btn-benar'), bS=document.getElementById('btn-salah');
+  bB.disabled=false; bS.disabled=false;
+  bB.style.cssText='background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.4);border:2px solid rgba(16,185,129,0.4);padding:22px 10px;border-radius:16px;font-size:16px;font-weight:800;color:#1C1410;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .25s;';
+  bS.style.cssText='background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.4);border:2px solid rgba(239,68,68,0.4);padding:22px 10px;border-radius:16px;font-size:16px;font-weight:800;color:#1C1410;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .25s;';
+  m2locked=false;
+}
+
+function pickTF(val){
+  if(m2locked)return;
+  m2locked=true;
+  const q=TF[m2idx];
+  const correct=val===q.betul;
+  if(correct)m2score+=100;
+  document.getElementById('score-m2').textContent=m2score;
+  document.getElementById('btn-benar').disabled=true;
+  document.getElementById('btn-salah').disabled=true;
+
+  if(q.betul===true){
+    document.getElementById('btn-benar').style.background='rgba(16,185,129,0.8)';
+  } else {
+    document.getElementById('btn-salah').style.background='rgba(239,68,68,0.8)';
+  }
+
+  const fb=document.getElementById('m2-feedback');
+  fb.innerHTML=`<div style="padding:14px 16px;background:${correct?'rgba(16,185,129,0.12)':'rgba(239,68,68,0.1)'};border:1px solid ${correct?'rgba(16,185,129,0.35)':'rgba(239,68,68,0.25)'};border-radius:12px;font-size:12px;color:rgba(0,0,0,0.75);line-height:1.7;">
+    ${correct?'✅':'❌'} <strong>${correct?'Betul!':'Salah.'}</strong> ${q.fakta}
+  </div>`;
+
+  setTimeout(()=>{
+    if(m2idx+1>=TF.length){
+      m2pts=m2score;
+      document.getElementById('m2-pts-display').textContent=m2pts;
+      go('m2done');
+    } else {
+      m2idx++;
+      renderM2();
+    }
+  },2200);
+}
+
+// ── MISI 3 ──
+function initM3(){
+  m3shuffled=shuf(EFFECTS); m3idx=0; m3score=0; m3locked=false;
+  document.getElementById('score-m3').textContent='0';
+  renderM3();
+}
+
+function renderM3(){
+  const cur=m3shuffled[m3idx];
+  document.getElementById('m3-counter').textContent=`Kad ${m3idx+1} / ${m3shuffled.length}`;
+  document.getElementById('m3-pbar').style.width=(m3idx/m3shuffled.length*100)+'%';
+  document.getElementById('m3-effect-text').textContent=cur.teks;
+  document.getElementById('m3-feedback').innerHTML='';
+  const bP=document.getElementById('btn-pendek'), bPj=document.getElementById('btn-panjang');
+  bP.disabled=false; bPj.disabled=false;
+  bP.style.cssText='background:rgba(217,119,6,0.12);border-color:rgba(217,119,6,0.4);border:2px solid rgba(217,119,6,0.4);padding:20px 10px;border-radius:16px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .25s;text-align:center;color:#1C1410;';
+  bPj.style.cssText='background:rgba(124,58,237,0.12);border-color:rgba(124,58,237,0.4);border:2px solid rgba(124,58,237,0.4);padding:20px 10px;border-radius:16px;cursor:pointer;font-family:"DM Sans",sans-serif;transition:all .25s;text-align:center;color:#1C1410;';
+  m3locked=false;
+}
+
+function pickEf(jenis){
+  if(m3locked)return;
+  m3locked=true;
+  const cur=m3shuffled[m3idx];
+  const correct=jenis===cur.jenis;
+  if(correct)m3score+=100;
+  document.getElementById('score-m3').textContent=m3score;
+  document.getElementById('btn-pendek').disabled=true;
+  document.getElementById('btn-panjang').disabled=true;
+
+  if(cur.jenis==='pendek'){document.getElementById('btn-pendek').style.background='rgba(217,119,6,0.8)';}
+  else{document.getElementById('btn-panjang').style.background='rgba(124,58,237,0.8)';}
+
+  const fb=document.getElementById('m3-feedback');
+  fb.innerHTML=`<div style="padding:12px 16px;background:${correct?'rgba(16,185,129,0.12)':'rgba(239,68,68,0.1)'};border:1px solid ${correct?'rgba(16,185,129,0.35)':'rgba(239,68,68,0.25)'};border-radius:12px;font-size:12px;color:rgba(0,0,0,0.75);line-height:1.7;">
+    ${correct?`✅ Betul! Ini adalah kesan jangka ${cur.jenis}.`:`❌ Salah. Ini sebenarnya kesan jangka ${cur.jenis.toUpperCase()}.`}
+  </div>`;
+
+  setTimeout(()=>{
+    if(m3idx+1>=m3shuffled.length){
+      m3pts=m3score;
+      showFinal();
+    } else {
+      m3idx++;
+      renderM3();
+    }
+  },2000);
+}
+
+// ── FINAL ──
+function showFinal(){
+  const total=m1pts+m2pts+m3pts;
+  const max=750+600+800;
+  const pct=Math.round(total/max*100);
+  const {darjah,msg,ikon}=
+    pct>=90?{darjah:"Penyiasat Lagenda ⭐⭐⭐",msg:"Luar biasa! Anda menguasai sepenuhnya sejarah Saidina Uthman.",ikon:"🏆"}
+    :pct>=70?{darjah:"Penyiasat Mahir ⭐⭐",msg:"Bagus! Anda memahami dengan baik peristiwa bersejarah ini.",ikon:"🥇"}
+    :pct>=50?{darjah:"Penyiasat Muda ⭐",msg:"Usaha yang baik! Ulang kaji lagi untuk pemahaman yang lebih kukuh.",ikon:"🥈"}
+    :{darjah:"Penyiasat Baharu",msg:"Teruskan belajar! Sejarah ini penting untuk difahami.",ikon:"📖"};
+
+  document.getElementById('final-content').innerHTML=`
+    <div style="font-size:72px;margin-bottom:10px;animation:floatAnim 2.5s ease infinite;">${ikon}</div>
+    <div style="font-family:'Amiri',serif;font-size:12px;color:#B45309;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">Laporan Penyiasat</div>
+    <h2 style="font-family:'Amiri',serif;font-size:26px;color:#1C1410;margin-bottom:4px;">Tahniah, ${pName}!</h2>
+    <p style="font-size:13px;color:#B45309;font-weight:700;margin-bottom:20px;">${darjah}</p>
+    <div style="background:linear-gradient(135deg,rgba(180,83,9,0.1),rgba(180,83,9,0.04));border:2px solid rgba(180,83,9,0.35);border-radius:20px;padding:24px 20px;margin-bottom:18px;">
+      <div style="font-size:72px;font-weight:900;color:#B45309;line-height:1;">${total}</div>
+      <div style="font-size:12px;color:rgba(0,0,0,0.4);margin-top:4px;">daripada ${max} mata (${pct}%)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid rgba(0,0,0,0.1);">
+        ${[['⚔️','Misi 1\nPunca',m1pts,'#DC2626',750],['🛡️','Misi 2\nStrategi',m2pts,'#059669',600],['📜','Misi 3\nKesan',m3pts,'#7C3AED',800]].map(([ik,lb,val,c,mx])=>`
+          <div>
+            <div style="font-size:22px;">${ik}</div>
+            <div style="font-size:22px;font-weight:900;color:${c};line-height:1.1;">${val}</div>
+            <div style="font-size:9px;color:rgba(0,0,0,0.4);white-space:pre-line;">${lb}</div>
+            <div style="font-size:9px;color:rgba(0,0,0,0.3);">/${mx}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div style="background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.1);border-radius:14px;padding:14px 18px;margin-bottom:16px;">
+      <p style="font-size:13px;color:rgba(0,0,0,0.65);line-height:1.7;font-style:italic;">"${msg}"</p>
+    </div>
+    <div style="background:rgba(180,83,9,0.08);border:1px solid rgba(180,83,9,0.25);border-radius:14px;padding:14px 18px;margin-bottom:20px;">
+      <p style="font-size:12px;color:rgba(0,0,0,0.75);line-height:1.8;">
+        📖 <strong style="color:#B45309;">Iktibar Utama:</strong><br/>
+        Pembunuhan Uthman mengajar kita bahaya <em>fitnah</em> dan <em>musuh dalam selimut</em>. Kesabaran dan keteguhan iman Uthman menjadikan beliau syahid yang mulia dalam sejarah Islam.
+      </p>
+    </div>
+    <button class="big-btn" style="background:linear-gradient(135deg,#B45309,#92400E);" onclick="resetAll()">🔁 MAIN SEMULA</button>`;
+  go('final');
+}
+
+function resetAll(){
+  m1pts=0; m2pts=0; m3pts=0; pName='';
+  document.getElementById('name-input').value='';
+  document.getElementById('start-btn').disabled=true;
+  go('welcome');
+}
+
+// Wire up screen transitions that need game init
+document.addEventListener('click',e=>{
+  const id=e.target.closest('[data-goto]')?.dataset.goto;
+  if(id)go(id);
+});
+
+// Override go() to init games on navigate
+const _go=go;
+window.go=function(id){
+  if(id==='m1game')initM1();
+  if(id==='m2game')initM2();
+  if(id==='m3game')initM3();
+  _go(id);
+};
+</script>
+</body>
+</html>
